@@ -40,7 +40,7 @@
   // font loader with standardFont.
   id<MDCTypographyFontLoading> fontLoader = [MDCTypography fontLoader];
   if (![fontLoader isKindOfClass:[MDCSystemFontLoader class]]) {
-    NSLog(@"MaterialTypography : Custom font loaders are not compatible with Dynamic Type.");
+    NSLog(@"Font loaders are not compatible with mdc_standardFontForMaterialTextStyle.");
   }
 
   UIFontDescriptor *fontDescriptor =
