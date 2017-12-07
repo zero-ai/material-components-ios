@@ -42,7 +42,7 @@
  @param style The Material font text style that will determine the fontSize of the new font
  @param scaled Should the new font be scaled according to the content size category (Dynamic Type)
  */
-- (nonnull UIFont *)mdc_fontForMaterialTextStyle:(MDCFontTextStyle)style
-                            scaledForDynamicType:(BOOL)scaled;
+- (nonnull UIFont *)mdc_fontSizedForMaterialTextStyle:(MDCFontTextStyle)style
+                                 scaledForDynamicType:(BOOL)scaled;
 
 @end
