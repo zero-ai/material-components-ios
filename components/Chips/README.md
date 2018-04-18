@@ -87,10 +87,146 @@ the others (`contentPadding`). This is useful so that you can set each of the pa
 ensure your chips look correct whether or not they have an image and/or accessory view. The chip
 uses these property to determine `intrinsicContentSize` and `sizeThatFits`.
 
-### Collections of Chips
-It is easiest to show large groups of Chips by containing them in a UICollectionView. Use
-`MDCChipCollectionViewCell` and `MDCChipCollectionViewFlowLayout` to configure a collection view to show
-chips.
+### Type of Chips Collections
+Material Design encourages to use of chips as four different types.
+Input Chips, Filter Chips, Action Chips, and Choice Chips.
+
+- - -
+
+## Types
+Material Design encourages to use of chips as four different types.
+Input Chips, Filter Chips, Action Chips, and Choice Chips.
+
+### Input Chips
+TBD
+
+### Filter Chips
+Filter chips represent filters for a collection. Where users are able to select multiple chips in order to filter what they want.
+
+TODO: Insert Screen shot
+
+#### Implementation
+It is easiest to create filter Chips by containing them in a `UICollectionView`:
+- Use `MDCChipCollectionViewFlowLayout` as the collection view layout:
+ `MDCChipCollectionViewFlowLayout *layout = [[MDCChipCollectionViewFlowLayout alloc] init];
+  _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];`
+- Allow multi cell selection in collection view:
+   `collectionView.allowsMultipleSelection = YES;`
+- Use `MDCChipCollectionViewCell` as collection view cells. (`MDCChipCollectionViewCell`
+manages the state of the chip based on selection state of collection view automatically)
+<!--<div class="material-code-render" markdown="1">-->
+``` objc
+- (void)loadView {
+  [super loadView];
+  // ...
+  [_collectionView registerClass:[MDCChipCollectionViewCell class]
+      forCellWithReuseIdentifier:@"identifier"];
+  // ...
+ }
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                           cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+  MDCChipCollectionViewCell *cell =
+      [collectionView dequeueReusableCellWithReuseIdentifier:@"identifier" forIndexPath:indexPath];
+  MDCChipView *chipView = cell.chipView;
+  // configure the chipView
+  return cell;
+}
+```
+<!--</div>-->
+- Delegate and state changes:
+Use UICollectionViewDelegate `collectionView:didSelectItemAtIndexPath:` and `collectionView:didDeselectItemAtIndexPath:` for reacting to filter changes.
+
+Use UICollectionView `deselectItemAtIndexPath:animated:` and `selectItemAtIndexPath:animated:scrollPosition:` methods to edit filter selection in code.
+
+### Choice Chips
+Choice chips allow selection of a single chip from a set of options.
+
+Choice chips clearly delineate and display options in a compact area. They are a good alternative to toggle buttons, radio buttons, and single select menus.
+
+TODO: Insert Screen shot
+
+#### Implementation
+It is easiest to create choice chips by containing them in a `UICollectionView`:
+- Use `MDCChipCollectionViewFlowLayout` as the collection view layout:
+ `MDCChipCollectionViewFlowLayout *layout = [[MDCChipCollectionViewFlowLayout alloc] init];
+  _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];`
+- Leave the default behavior of collection view to get single selection behavior.
+- Use `MDCChipCollectionViewCell` as collection view cells. (`MDCChipCollectionViewCell`
+manages the state of the chip based on selection state of collection view automatically)
+<!--<div class="material-code-render" markdown="1">-->
+``` objc
+- (void)loadView {
+  [super loadView];
+  // ...
+  [_collectionView registerClass:[MDCChipCollectionViewCell class]
+      forCellWithReuseIdentifier:@"identifier"];
+  // ...
+ }
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                           cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+  MDCChipCollectionViewCell *cell =
+      [collectionView dequeueReusableCellWithReuseIdentifier:@"identifier" forIndexPath:indexPath];
+  MDCChipView *chipView = cell.chipView;
+  // configure the chipView
+  return cell;
+}
+```
+<!--</div>-->
+- Delegate and state changes:
+Use UICollectionViewDelegate `collectionView:didSelectItemAtIndexPath:` and `collectionView:didDeselectItemAtIndexPath:` for reacting to selection changes.
+
+Use UICollectionView `deselectItemAtIndexPath:animated:` and `selectItemAtIndexPath:animated:scrollPosition:` methods to change selection in code.
+
+### Action Chips
+Action chips offer actions related to primary content. They should appear dynamically and contextually in a UI.
+
+An alternative to action chips are buttons, which should appear persistently and consistently.
+
+TODO: Insert Screen shot
+
+#### Implementation
+
+It is easiest to create action chips by containing them in a `UICollectionView`:
+- Use `MDCChipCollectionViewFlowLayout` as the collection view layout:
+ `MDCChipCollectionViewFlowLayout *layout = [[MDCChipCollectionViewFlowLayout alloc] init];
+  _collectionView = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout];`
+- Use `MDCChipCollectionViewCell` as collection view cells. (`MDCChipCollectionViewCell`
+manages the state of the chip based on selection state of collection view automatically)
+<!--<div class="material-code-render" markdown="1">-->
+``` objc
+- (void)loadView {
+  [super loadView];
+  // ...
+  [_collectionView registerClass:[MDCChipCollectionViewCell class]
+      forCellWithReuseIdentifier:@"identifier"];
+  // ...
+ }
+
+- (__kindof UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
+                           cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+  MDCChipCollectionViewCell *cell =
+      [collectionView dequeueReusableCellWithReuseIdentifier:@"identifier" forIndexPath:indexPath];
+  MDCChipView *chipView = cell.chipView;
+  // configure the chipView
+  return cell;
+}
+```
+<!--</div>-->
+- Make sure to chip is never left in selected state
+<!--<div class="material-code-render" markdown="1">-->
+``` objc
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+  // For action chips, we never want the chip to stay in selected state.
+  // Other possible apporaches would be relying on theming or Customizing collectionViewCell
+  // selected state.
+  [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+}
+```
+<!--</div>-->
+- Delegate and state changes:
+Use UICollectionViewDelegate `collectionView:didSelectItemAtIndexPath:` to triggering the aciton.
 
 - - -
 
