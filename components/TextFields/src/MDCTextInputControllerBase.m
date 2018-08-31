@@ -1007,6 +1007,7 @@ static UITextFieldViewMode _underlineViewModeDefault = UITextFieldViewModeWhileE
   } else {
     if (![self.textInput.leadingUnderlineLabel.text isEqualToString:helperText]) {
       self.textInput.leadingUnderlineLabel.text = helperText;
+      [self.textInput layoutIfNeeded];
       [self updateLayout];
     }
   }
@@ -1381,11 +1382,8 @@ static UITextFieldViewMode _underlineViewModeDefault = UITextFieldViewModeWhileE
                            (CGFloat)self.floatingPlaceholderScale.floatValue) +
                    MDCTextInputControllerBaseDefaultPadding;
 
-  CGFloat scale = UIScreen.mainScreen.scale;
-  CGFloat leadingOffset =
-      MDCCeil(self.textInput.leadingUnderlineLabel.font.lineHeight * scale) / scale;
-  CGFloat trailingOffset =
-      MDCCeil(self.textInput.trailingUnderlineLabel.font.lineHeight * scale) / scale;
+  CGFloat leadingOffset = self.textInput.leadingUnderlineLabel.intrinsicContentSize.height;
+  CGFloat trailingOffset = self.textInput.trailingUnderlineLabel.intrinsicContentSize.height;
 
   // The amount of space underneath the underline is variable. It could just be
   // MDCTextInputControllerBaseDefaultPadding or the biggest estimated underlineLabel height +
@@ -1591,6 +1589,10 @@ static UITextFieldViewMode _underlineViewModeDefault = UITextFieldViewModeWhileE
       self.textInput.leadingUnderlineLabel.accessibilityLabel = nil;
     }
   }
+
+  [self updateLayout];
+  [self.textInput setNeedsLayout];
+  [self.textInput layoutIfNeeded];
 }
 
 -(void)setHelperText:(NSString *)helperText
