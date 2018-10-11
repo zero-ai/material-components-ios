@@ -271,6 +271,7 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
     _containerView.layer.masksToBounds = YES;
 
     // Listen for taps on the background of the view.
+    /*
     [_containerView addTarget:self
                        action:@selector(handleBackgroundTapped:)
              forControlEvents:UIControlEventTouchUpInside];
@@ -288,6 +289,7 @@ static const MDCFontTextStyle kButtonTextStyle = MDCFontTextStyleButton;
       [swipeRightGesture setDirection:UISwipeGestureRecognizerDirectionLeft];
       [_containerView addGestureRecognizer:swipeLeftGesture];
     }
+    */
 
     _contentView = [[UIView alloc] init];
     [_contentView setTranslatesAutoresizingMaskIntoConstraints:NO];
