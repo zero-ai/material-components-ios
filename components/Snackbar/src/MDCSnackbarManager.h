@@ -68,6 +68,11 @@
 @property(nonatomic, assign) MDCSnackbarAlignment alignment;
 
 /**
+ The currently-showing Snackbar.
+ */
+@property(nonatomic) MDCSnackbarMessageView *currentSnackbar;
+
+/**
  Shows @c message to the user, in a style consistent with the data contained in @c message.
 
  For messages with the same category, the firing of completion blocks has a guaranteed FIFO
