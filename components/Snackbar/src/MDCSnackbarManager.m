@@ -601,6 +601,10 @@ static NSString *const kAllMessagesCategory = @"$$___ALL_MESSAGES___$$";
   return self.internalManager.overlayView.alignment;
 }
 
+- (MDCSnackbarMessageView *)currentSnackbar {
+    return self.internalManager.currentSnackbar;
+}
+
 #pragma mark - Suspension
 
 - (id<MDCSnackbarSuspensionToken>)suspendMessagesWithCategory:(NSString *)category {
